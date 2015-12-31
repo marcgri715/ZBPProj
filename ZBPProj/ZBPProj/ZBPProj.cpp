@@ -3,6 +3,7 @@
 // text. Additional code is provided to validate the
 // resulting tree after creation.
 //
+#include "stdafx.h"
 #include <iostream>
 #include <iomanip>
 #include <cstdlib>
@@ -12,6 +13,7 @@
 #include "Edge.h"
 #include "SuffixTree.h"
 #include "SuffixTreeValidator.h"
+#include "Globals.h"
 
 using std::cout;
 using std::cin;
@@ -20,44 +22,6 @@ using std::setw;
 using std::flush;
 using std::endl;
 
-
-//
-// The maximum input string length this program
-// will handle is defined here.  A suffix tree
-// can have as many as 2N edges/nodes.  The edges
-// are stored in a hash table, whose size is also
-// defined here.
-//
-const int MAX_LENGTH = 1000;
-const int HASH_TABLE_SIZE = 2179;  //A prime roughly 10% larger
-
-//
-// This is the hash table where all the currently
-// defined edges are stored.  You can dump out
-// all the currently defined edges by iterating
-// through the table and finding edges whose start_node
-// is not -1.
-//
-
-Edge Edges[HASH_TABLE_SIZE];
-
-//
-// The array of defined nodes.  The count is 1 at the
-// start because the initial tree has the root node
-// defined, with no children.
-//
-
-int Node::Count = 1;
-Node Nodes[MAX_LENGTH * 2];
-
-//
-// The input buffer and character count.  Please note that N
-// is the length of the input string -1, which means it
-// denotes the maximum index in the input buffer.
-//
-
-char T[MAX_LENGTH];
-int N;
 
 
 // This routine prints out the contents of the suffix tree
@@ -72,19 +36,19 @@ void dump_edges(int current_n)
 	cout << " Start  End  Suf  First Last  String\n";
 	for (int j = 0; j < HASH_TABLE_SIZE; j++) {
 		Edge *s = Edges + j;
-		if (s->GetStartNode == -1)
+		if (s->GetStartNode() == -1)
 			continue;
-		cout << setw(5) << s->GetStartNode << " "
-			<< setw(5) << s->GetEndNode << " "
-			<< setw(3) << Nodes[s->GetEndNode].suffix_node << " "
-			<< setw(5) << s->GetFirstCharIndex << " "
-			<< setw(6) << s->GetLastCharIndex << "  ";
+		cout << setw(5) << s->GetStartNode() << " "
+			<< setw(5) << s->GetEndNode() << " "
+			<< setw(3) << Nodes[s->GetEndNode()].GetSuffixNode() << " "
+			<< setw(5) << s->GetFirstCharIndex() << " "
+			<< setw(6) << s->GetLastCharIndex() << "  ";
 		int top;
-		if (current_n > s->GetLastCharIndex)
-			top = s->GetLastCharIndex;
+		if (current_n > s->GetLastCharIndex())
+			top = s->GetLastCharIndex();
 		else
 			top = current_n;
-		for (int l = s->GetFirstCharIndex;
+		for (int l = s->GetFirstCharIndex();
 			l <= top;
 			l++)
 			cout << T[l];

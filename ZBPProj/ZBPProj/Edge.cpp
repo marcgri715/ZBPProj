@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Edge.h"
+#include "Globals.h"
 
 
 Edge::Edge()
@@ -85,13 +86,13 @@ void Edge::Remove()
 int Edge::SplitEdge(Suffix &s)
 {
 	Remove();
-	Edge *new_edge =
+	Edge* new_edge =
 		new Edge(first_char_index,
-		first_char_index + s.GetLastCharIndex - s.GetFirstCharIndex,
-		s.GetOriginNode);
+		first_char_index + s.GetLastCharIndex() - s.GetFirstCharIndex(),
+		s.GetOriginNode());
 	new_edge->Insert();
-	Nodes[new_edge->end_node].suffix_node = s.GetOriginNode;
-	first_char_index += s.GetLastCharIndex - s.GetFirstCharIndex + 1;
+	Nodes[new_edge->end_node].SetSuffixNode(s.GetOriginNode());
+	first_char_index += s.GetLastCharIndex() - s.GetFirstCharIndex() + 1;
 	start_node = new_edge->end_node;
 	Insert();
 	return new_edge->end_node;

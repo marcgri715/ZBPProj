@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "SuffixTreeValidator.h"
+#include "Globals.h"
+#include <iostream>
 
+using namespace std;
 
 SuffixTreeValidator::SuffixTreeValidator()
 {
@@ -67,23 +70,23 @@ int SuffixTreeValidator::walk_tree(int start_node, int last_char_so_far)
 	int edges = 0;
 	for (int i = 0; i < 256; i++) {
 		Edge edge = Edge::Find(start_node, i);
-		if (edge.GetStartNode != -1) {
-			if (BranchCount[edge.GetStartNode] < 0)
+		if (edge.GetStartNode() != -1) {
+			if (BranchCount[edge.GetStartNode()] < 0)
 				cerr << "Logic error on node "
-				<< edge.GetStartNode
+				<< edge.GetStartNode()
 				<< '\n';
-			BranchCount[edge.GetStartNode]++;
+			BranchCount[edge.GetStartNode()]++;
 			edges++;
 			int l = last_char_so_far;
-			for (int j = edge.GetFirstCharIndex; j <= edge.GetLastCharIndex; j++)
+			for (int j = edge.GetFirstCharIndex(); j <= edge.GetLastCharIndex(); j++)
 				CurrentString[l++] = T[j];
 			CurrentString[l] = '\0';
-			if (walk_tree(edge.GetEndNode, l)) {
-				if (BranchCount[edge.GetEndNode] > 0)
+			if (walk_tree(edge.GetEndNode(), l)) {
+				if (BranchCount[edge.GetEndNode()] > 0)
 					cerr << "Logic error on node "
-					<< edge.GetEndNode
+					<< edge.GetEndNode()
 					<< "\n";
-				BranchCount[edge.GetEndNode]--;
+				BranchCount[edge.GetEndNode()]--;
 			}
 		}
 	}

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "SuffixTree.h"
+#include "Globals.h"
 
 
 SuffixTree::SuffixTree()
@@ -32,21 +33,21 @@ void SuffixTree::AddPrefix(Suffix &active, int last_char_index)
 
 	for (;;) {
 		Edge edge;
-		parent_node = active.GetOriginNode;
+		parent_node = active.GetOriginNode();
 		//
 		// Step 1 is to try and find a matching edge for the given node.
 		// If a matching edge exists, we are done adding edges, so we break
 		// out of this big loop.
 		//
 		if (active.Explicit()) {
-			edge = Edge::Find(active.GetOriginNode, T[last_char_index]);
-			if (edge.GetStartNode != -1)
+			edge = Edge::Find(active.GetOriginNode(), T[last_char_index]);
+			if (edge.GetStartNode() != -1)
 				break;
 		}
 		else { //implicit node, a little more complicated
-			edge = Edge::Find(active.GetOriginNode, T[active.GetFirstCharIndex]);
-			int span = active.GetLastCharIndex - active.GetFirstCharIndex;
-			if (T[edge.GetFirstCharIndex + span + 1] == T[last_char_index])
+			edge = Edge::Find(active.GetOriginNode(), T[active.GetFirstCharIndex()]);
+			int span = active.GetLastCharIndex() - active.GetFirstCharIndex();
+			if (T[edge.GetFirstCharIndex() + span + 1] == T[last_char_index])
 				break;
 			parent_node = edge.SplitEdge(active);
 		}
@@ -65,15 +66,15 @@ void SuffixTree::AddPrefix(Suffix &active, int last_char_index)
 		//
 		// This final step is where we move to the next smaller suffix
 		//
-		if (active.GetOriginNode == 0)
-			active.GetFirstCharIndex++;
+		if (active.GetOriginNode() == 0)
+			active.SetFirstCharIndex(active.GetFirstCharIndex() + 1);
 		else
-			active.GetOriginNode = Nodes[active.GetOriginNode].suffix_node;
+			active.SetOriginNode(Nodes[active.GetOriginNode()].GetSuffixNode());
 		active.Canonize();
 	}
 	if (last_parent_node > 0)
 		Nodes[last_parent_node].SetSuffixNode(parent_node);
-	active.GetLastCharIndex++;  //Now the endpoint is the next active point
+	active.SetLastCharIndex(active.GetLastCharIndex() + 1);  //Now the endpoint is the next active point
 	active.Canonize();
 };
 

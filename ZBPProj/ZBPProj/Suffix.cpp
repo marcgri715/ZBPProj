@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Suffix.h"
+#include "Globals.h"
 
 
 Suffix::Suffix(int node, int start, int stop) : origin_node(node), first_char_index(start), last_char_index(stop)
@@ -17,13 +18,13 @@ void Suffix::Canonize()
 {
 	if (!Explicit()) {
 		Edge edge = Edge::Find(origin_node, T[first_char_index]);
-		int edge_span = edge.GetLastCharIndex - edge.GetFirstCharIndex;
+		int edge_span = edge.GetLastCharIndex() - edge.GetFirstCharIndex();
 		while (edge_span <= (last_char_index - first_char_index)) {
 			first_char_index = first_char_index + edge_span + 1;
-			origin_node = edge.GetEndNode;
+			origin_node = edge.GetEndNode();
 			if (first_char_index <= last_char_index) {
-				edge = Edge::Find(edge.GetEndNode, T[first_char_index]);
-				edge_span = edge.GetLastCharIndex - edge.GetFirstCharIndex;
+				edge = Edge::Find(edge.GetEndNode(), T[first_char_index]);
+				edge_span = edge.GetLastCharIndex() - edge.GetFirstCharIndex();
 			};
 		}
 	}
