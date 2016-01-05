@@ -11,8 +11,8 @@
 // are stored in a hash table, whose size is also
 // defined here.
 //
-const int MAX_LENGTH = 1000;
-const int HASH_TABLE_SIZE = 2179;  //A prime roughly 10% larger
+#define MAX_LENGTH 1000
+#define HASH_TABLE_SIZE 2179  //A prime roughly 10% larger
 
 //
 // This is the hash table where all the currently
@@ -22,7 +22,7 @@ const int HASH_TABLE_SIZE = 2179;  //A prime roughly 10% larger
 // is not -1.
 //
 
-Edge Edges[HASH_TABLE_SIZE];
+extern Edge Edges[HASH_TABLE_SIZE];
 
 //
 // The array of defined nodes.  The count is 1 at the
@@ -30,8 +30,7 @@ Edge Edges[HASH_TABLE_SIZE];
 // defined, with no children.
 //
 
-int Node::Count = 1;
-Node Nodes[MAX_LENGTH * 2];
+extern Node Nodes[MAX_LENGTH * 2];
 
 //
 // The input buffer and character count.  Please note that N
@@ -39,9 +38,9 @@ Node Nodes[MAX_LENGTH * 2];
 // denotes the maximum index in the input buffer.
 //
 
-char T[MAX_LENGTH];
-int N;
+extern char T[MAX_LENGTH];
+extern int N;
 
-char CurrentString[MAX_LENGTH];
-char GoodSuffixes[MAX_LENGTH];
-char BranchCount[MAX_LENGTH * 2] = { 0 };
+extern char CurrentString[MAX_LENGTH];
+extern char GoodSuffixes[MAX_LENGTH];
+extern char BranchCount[MAX_LENGTH * 2];

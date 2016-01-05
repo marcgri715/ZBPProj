@@ -22,7 +22,8 @@ using std::setw;
 using std::flush;
 using std::endl;
 
-
+int Node::Count = 1;
+char BranchCount[MAX_LENGTH * 2] = { 0 };
 
 // This routine prints out the contents of the suffix tree
 // at the end of the program by walking through the

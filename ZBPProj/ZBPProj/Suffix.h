@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Edge.h"
 #include "Node.h"
 
 // When a new tree is added to the table, we step
