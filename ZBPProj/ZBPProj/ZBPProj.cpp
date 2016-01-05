@@ -23,7 +23,13 @@ using std::flush;
 using std::endl;
 
 int Node::Count = 1;
+Edge Edges[HASH_TABLE_SIZE];
+Node Nodes[MAX_LENGTH * 2];
+char T[MAX_LENGTH];
+char CurrentString[MAX_LENGTH];
+char GoodSuffixes[MAX_LENGTH];
 char BranchCount[MAX_LENGTH * 2] = { 0 };
+int N;
 
 // This routine prints out the contents of the suffix tree
 // at the end of the program by walking through the

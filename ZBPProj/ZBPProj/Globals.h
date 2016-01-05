@@ -3,6 +3,7 @@
 #include "Edge.h"
 #include "SuffixTree.h"
 #include "stdafx.h"
+#include <vector>
 
 //
 // The maximum input string length this program
@@ -22,7 +23,7 @@
 // is not -1.
 //
 
-extern Edge Edges[HASH_TABLE_SIZE];
+extern Edge Edges[];
 
 //
 // The array of defined nodes.  The count is 1 at the
@@ -30,7 +31,8 @@ extern Edge Edges[HASH_TABLE_SIZE];
 // defined, with no children.
 //
 
-extern Node Nodes[MAX_LENGTH * 2];
+extern Node Nodes[];
+//extern Node Nodes[MAX_LENGTH * 2];
 
 //
 // The input buffer and character count.  Please note that N
@@ -38,9 +40,9 @@ extern Node Nodes[MAX_LENGTH * 2];
 // denotes the maximum index in the input buffer.
 //
 
-extern char T[MAX_LENGTH];
+extern char T[];
 extern int N;
 
-extern char CurrentString[MAX_LENGTH];
-extern char GoodSuffixes[MAX_LENGTH];
-extern char BranchCount[MAX_LENGTH * 2];
+extern char CurrentString[];
+extern char GoodSuffixes[];
+extern char BranchCount[];
