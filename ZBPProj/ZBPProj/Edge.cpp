@@ -5,6 +5,7 @@
 
 Edge::Edge()
 {
+    start_node = -1;
 }
 
 // I create new edges in the program while walking up
